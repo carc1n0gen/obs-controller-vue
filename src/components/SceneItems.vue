@@ -1,13 +1,14 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
+
 import useSceneItems from '../composables/useSceneItems'
-import Stack from './Stack.vue'
+import { storage } from '../utils'
 import ControlButton from './ControlButton.vue'
 import Modal from './Modal.vue'
-
+import Stack from './Stack.vue'
 
 const { sceneItems, setSceneItemEnabled } = useSceneItems()
-const controlledSceneItemNames = ref(JSON.parse(localStorage.getItem('__controlled_sceneItems__')) || [])
+const controlledSceneItemNames = ref(storage.get('__controlled_sceneItems__', []))
 const showSelectedDialog = ref(false)
 
 const controlledSceneItems = computed(() => {
@@ -19,7 +20,7 @@ const uncontrolledSceneItems = computed(() => {
 })
 
 watch(controlledSceneItemNames, () => {
-  localStorage.setItem('__controlled_sceneItems__', JSON.stringify(controlledSceneItemNames.value))
+  storage.set('__controlled_sceneItems__', controlledSceneItemNames.value)
 })
 
 function toggleSelectionDialog() {
@@ -46,17 +47,13 @@ function removeControlledSceneItem(sceneItemName) {
       >
         {{ sceneItem.sourceName }}
       </ControlButton>
-      <ControlButton
-        @click="toggleSelectionDialog"
-      >
-        + / -
-      </ControlButton>
+      <ControlButton @click="toggleSelectionDialog"> + / - </ControlButton>
     </Stack>
     <Modal :is-open="showSelectedDialog" :on-close="toggleSelectionDialog" :show-close-button="true">
       <h3>Available Scene Items</h3>
       <button
         v-for="sceneItem in uncontrolledSceneItems"
-        :style="{margin: '0 10px 10px 0'}"
+        :style="{ margin: '0 10px 10px 0' }"
         @click="addControlledSceneItem(sceneItem.sourceName)"
       >
         {{ sceneItem.sourceName }}
@@ -64,7 +61,7 @@ function removeControlledSceneItem(sceneItemName) {
       <h3>Controlled Scene Items</h3>
       <button
         v-for="sceneItem in controlledSceneItems"
-        :style="{margin: '0 10px 10px 0'}"
+        :style="{ margin: '0 10px 10px 0' }"
         @click="removeControlledSceneItem(sceneItem.sourceName)"
       >
         {{ sceneItem.sourceName }}
@@ -73,6 +70,4 @@ function removeControlledSceneItem(sceneItemName) {
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

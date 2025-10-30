@@ -2,12 +2,13 @@
 import { computed, ref, watch } from 'vue'
 
 import useInputs from '../composables/useInputs'
-import Stack from './Stack.vue'
+import { storage } from '../utils'
 import ControlButton from './ControlButton.vue'
 import Modal from './Modal.vue'
+import Stack from './Stack.vue'
 
 const { inputs, setInputMuted } = useInputs()
-const controlledInputNames = ref(JSON.parse(localStorage.getItem('__controlled_inputs__')) || [])
+const controlledInputNames = ref(storage.get('__controlled_inputs__', []))
 const showSelectionDialog = ref(false)
 
 const controlledInputs = computed(() => {
@@ -19,7 +20,7 @@ const uncontrolledInputs = computed(() => {
 })
 
 watch(controlledInputNames, () => {
-  localStorage.setItem('__controlled_inputs__', JSON.stringify(controlledInputNames.value))
+  storage.set('__controlled_inputs__', controlledInputNames.value)
 })
 
 function toggleSelectionDialog() {
@@ -31,7 +32,9 @@ function addControlledInput(inputName) {
 }
 
 function removeControlledInput(inputName) {
-  controlledInputNames.value = controlledInputNames.value.filter((controlledInputName) => inputName !== controlledInputName)
+  controlledInputNames.value = controlledInputNames.value.filter(
+    (controlledInputName) => inputName !== controlledInputName
+  )
 }
 </script>
 
@@ -50,15 +53,13 @@ function removeControlledInput(inputName) {
           <span v-if="!input.inputMuted">🐵</span>
         </div>
       </ControlButton>
-      <ControlButton @click="toggleSelectionDialog">
-        + / -
-      </ControlButton>
+      <ControlButton @click="toggleSelectionDialog"> + / - </ControlButton>
     </Stack>
     <Modal :is-open="showSelectionDialog" :on-close="toggleSelectionDialog" :show-close-button="true">
       <h3>Available Inputs</h3>
       <button
         v-for="input in uncontrolledInputs"
-        :style="{margin: '0 10px 10px 0'}"
+        :style="{ margin: '0 10px 10px 0' }"
         @click="addControlledInput(input.inputName)"
       >
         {{ input.inputName }}
@@ -66,7 +67,7 @@ function removeControlledInput(inputName) {
       <h3>Controlled Inputs</h3>
       <button
         v-for="input in controlledInputs"
-        :style="{margin: '0 10px 10px 0'}"
+        :style="{ margin: '0 10px 10px 0' }"
         @click="removeControlledInput(input.inputName)"
       >
         {{ input.inputName }}
@@ -75,6 +76,4 @@ function removeControlledInput(inputName) {
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,7 +1,7 @@
-import OBSWebSocket from "obs-websocket-js"
-import { ref } from "vue"
+import OBSWebSocket from 'obs-websocket-js'
+import { ref } from 'vue'
 
-import { log } from "../utils"
+import { log } from '../utils'
 
 const obs = ref()
 const isConnected = ref(false)

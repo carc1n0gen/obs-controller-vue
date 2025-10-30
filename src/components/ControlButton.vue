@@ -1,8 +1,8 @@
 <script setup>
-defineProps([
-  'state',
-  'disabled',
-])
+const { state = null, disabled = false } = defineProps({
+  state: String,
+  disabled: Boolean,
+})
 </script>
 
 <template>
@@ -16,12 +16,6 @@ button {
   font-size: 12px;
   width: 100px;
   height: 100px;
-
-  &:disabled {
-    background-color: rgb(46, 46, 14);
-    color: grey;
-    cursor: not-allowed;
-  }
 
   /* TODO: this will probably not work without changes */
   &.Plus {

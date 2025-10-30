@@ -1,7 +1,7 @@
 <script setup>
 import useScenes from '../composables/useScenes'
-import Stack from './Stack.vue'
 import ControlButton from './ControlButton.vue'
+import Stack from './Stack.vue'
 
 const { scenes, currentScene, setCurrentScene } = useScenes()
 </script>
@@ -10,7 +10,7 @@ const { scenes, currentScene, setCurrentScene } = useScenes()
   <div class="Scenes">
     <h2>Scenes</h2>
     <Stack gap="10px">
-      <ControlButton 
+      <ControlButton
         v-for="scene in scenes"
         :state="currentScene === scene.sceneName ? 'success' : undefined"
         @click="setCurrentScene(scene.sceneName)"
@@ -21,6 +21,4 @@ const { scenes, currentScene, setCurrentScene } = useScenes()
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,8 +1,7 @@
-import { ref } from "vue"
+import { ref } from 'vue'
 
-import useObs from "./useObs"
-import { watch, log } from "../utils"
-
+import { log, watch } from '../utils'
+import useObs from './useObs'
 
 const scenes = ref([])
 const currentScene = ref(null)
@@ -11,7 +10,7 @@ export default function useScenes() {
   const { obs, isConnected } = useObs()
 
   async function setCurrentScene(sceneName) {
-    await obs.value.call('SetCurrentProgramScene', {sceneName})
+    await obs.value.call('SetCurrentProgramScene', { sceneName })
     currentScene.value = sceneName
   }
 

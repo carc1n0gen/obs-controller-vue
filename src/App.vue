@@ -1,26 +1,23 @@
 <script setup>
 import { onMounted } from 'vue'
 
-import Stack from './components/Stack.vue'
-import Scenes from './components/Scenes.vue'
-import SceneItems from './components/SceneItems.vue'
-import Inputs from './components/Inputs.vue'
 import Controls from './components/Controls.vue'
+import Inputs from './components/Inputs.vue'
+import SceneItems from './components/SceneItems.vue'
+import Scenes from './components/Scenes.vue'
+import Setup from './components/Setup.vue'
+import Stack from './components/Stack.vue'
 import Toasts from './components/Toasts.vue'
 import useObs from './composables/useObs'
 
-const { connect } = useObs()
-
-onMounted(() => {
-  const obsIp = import.meta.env.VITE_OBS_IP || 'localhost'
-  const obsPort = import.meta.env.VITE_OBS_PORT || '4455'
-  const obsPassword = import.meta.env.VITE_OBS_PASSWORD || ''
-  connect(obsIp, obsPort, obsPassword)
-})
+const { isConnected } = useObs()
 </script>
 
 <template>
-  <Stack gap="50px">
+  <Stack v-if="!isConnected" is="main">
+    <Setup />
+  </Stack>
+  <Stack v-if="isConnected" is="main" gap="50px">
     <Stack direction="column" gap="50px">
       <Scenes />
       <SceneItems />
@@ -33,6 +30,4 @@ onMounted(() => {
   <Toasts />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

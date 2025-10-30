@@ -1,11 +1,12 @@
 <script setup>
 import { reactive, ref } from 'vue'
+
 import useObs from '../composables/useObs'
 import useToasts from '../composables/useToasts'
 import { log, watch } from '../utils'
-import Stack from './Stack.vue'
 import ControlButton from './ControlButton.vue'
 import Modal from './Modal.vue'
+import Stack from './Stack.vue'
 
 const { obs, isConnected } = useObs()
 const { showToast } = useToasts()
@@ -36,7 +37,7 @@ async function toggle(control, type) {
   controls[control] = res.outputActive
 }
 
-function toggleBraodcastModal() {
+function toggleBroadcastModal() {
   showBroadcastModal.value = !showBroadcastModal.value
 }
 
@@ -54,18 +55,12 @@ async function saveReplay() {
   <div class="controls">
     <h2>Controls</h2>
     <Stack gap="10px">
-      <ControlButton
-        :state="controls.broadcastActive ? 'success' : 'danger'"
-        @click="toggleBraodcastModal"
-      >
+      <ControlButton :state="controls.broadcastActive ? 'success' : 'danger'" @click="toggleBroadcastModal">
         <span v-if="controls.broadcastActive">Stop Broadcast</span>
         <span v-else>Start Broadcast</span>
         <div>📡</div>
       </ControlButton>
-      <ControlButton
-        :state="controls.recordingActive ? 'success' : 'danger'"
-        @click="toggleRecordingModal"
-      >
+      <ControlButton :state="controls.recordingActive ? 'success' : 'danger'" @click="toggleRecordingModal">
         <span v-if="controls.recordingActive">Stop Recording</span>
         <span v-else>Start Recording</span>
         <div>🔴</div>
@@ -78,27 +73,26 @@ async function saveReplay() {
         <span v-else>Start Replay</span>
         <div>🔵</div>
       </ControlButton>
-      <ControlButton
-        :disabled="!controls.replayActive"
-        @click="saveReplay"
-      >
+      <ControlButton :disabled="!controls.replayActive" @click="saveReplay">
         Save Replay
         <div>💾</div>
       </ControlButton>
     </Stack>
-    <Modal :is-open="showBroadcastModal" :on-close="toggleBraodcastModal" :show-close-button="false">
+    <Modal :is-open="showBroadcastModal" :on-close="toggleBroadcastModal" :show-close-button="false">
       <h2>⚠️ Attention ⚠️</h2>
       <p>
-        <span v-if="controls.broadcastActive">Are you sure you want to <strong>end</strong> the broadcast?</span>
-        <span v-else>Are you sure you want to <strong>start</strong> the broadcast?</span>
+        <span v-if="controls.broadcastActive"> Are you sure you want to <strong>end</strong> the broadcast?</span>
+        <span v-else> Are you sure you want to <strong>start</strong> the broadcast?</span>
       </p>
       <Stack gap="10px">
-        <button @click="toggleBraodcastModal">👈 Cancel</button>
+        <button @click="toggleBroadcastModal">👈 Cancel</button>
         <button
-          @click="async () => {
-            await toggle('broadcastActive', 'ToggleStream')
-            toggleBraodcastModal()
-          }"
+          @click="
+            async () => {
+              await toggle('broadcastActive', 'ToggleStream')
+              toggleBroadcastModal()
+            }
+          "
         >
           ✅ Yes, I'm sure
         </button>
@@ -113,10 +107,12 @@ async function saveReplay() {
       <Stack gap="10px">
         <button @click="toggleRecordingModal">👈 Cancel</button>
         <button
-          @click="async () => {
-            await toggle('recordingActive', 'ToggleRecord')
-            toggleRecordingModal()
-          }"
+          @click="
+            async () => {
+              await toggle('recordingActive', 'ToggleRecord')
+              toggleRecordingModal()
+            }
+          "
         >
           ✅ Yes, I'm sure
         </button>
@@ -125,6 +121,4 @@ async function saveReplay() {
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,12 +1,12 @@
 <script setup>
-import useToasts from '../composables/useToasts';
+import useToasts from '../composables/useToasts'
 
 const { toasts } = useToasts()
 </script>
 
 <template>
   <div class="toasts">
-    <div class="toast" v-for="toast in toasts">{{ toast.message }}</div>
+    <div v-for="toast in toasts" class="toast">{{ toast.message }}</div>
   </div>
 </template>
 

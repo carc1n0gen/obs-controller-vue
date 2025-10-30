@@ -1,11 +1,13 @@
 <script setup>
 import { useTemplateRef, watch } from 'vue'
 
-const { 
+const {
+  width = '480px',
   isOpen = false,
   onClose = () => {},
   showCloseButton = true,
 } = defineProps({
+  width: String,
   isOpen: Boolean,
   onClose: Function,
   showCloseButton: Boolean,
@@ -13,25 +15,22 @@ const {
 
 const dialog = useTemplateRef('dialog')
 
-watch(() => isOpen, (isOpenValue) => {
-  if (isOpenValue) {
-    dialog.value?.showModal()
-  } else {
-    dialog.value?.close()
-  }
-})
+watch(
+  [() => isOpen, dialog],
+  ([isOpenValue, dialogValue]) => {
+    if (isOpenValue) {
+      dialogValue?.showModal()
+    } else {
+      dialogValue?.close()
+    }
+  },
+  { immediate: true }
+)
 </script>
 
 <template>
-  <dialog ref="dialog" @cancel="onClose" :data-show-close="showCloseButton">
-    <button
-      v-if="showCloseButton"
-      data-size="small"
-      @click="onClose"
-      class="close-modal-button"
-    >
-      ❌
-    </button>
+  <dialog ref="dialog" @cancel="onClose" :data-show-close="showCloseButton" :style="{ width }">
+    <button v-if="showCloseButton" data-size="small" @click="onClose" class="close-modal-button">×</button>
     <slot />
   </dialog>
 </template>

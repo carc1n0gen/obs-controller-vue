@@ -1,19 +1,32 @@
 <script setup>
 const {
+  is = 'div',
   direction = 'row',
-  gap = '0',
+  justify = 'flex-start',
+  align = 'stretch',
+  gap = '0px',
 } = defineProps({
+  is: String,
   direction: String,
   justify: String,
-  items: String,
+  align: String,
   gap: String,
 })
 </script>
 
 <template>
-  <div class="stack" :style="{flexDirection: direction, gap}">
+  <component
+    :is="is"
+    :style="{
+      flexDirection: direction,
+      justifyContent: justify,
+      alignItems: align,
+      gap,
+    }"
+    class="stack"
+  >
     <slot />
-  </div>
+  </component>
 </template>
 
 <style scoped>
