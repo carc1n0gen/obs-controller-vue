@@ -2,10 +2,10 @@
 import OBSWebSocket from 'obs-websocket-js'
 import { onMounted, ref } from 'vue'
 
-import useObs from '../composables/useObs'
-import { storage } from '../utils'
-import Modal from './Modal.vue'
-import Stack from './Stack.vue'
+import Modal from '#/components/Modal.vue'
+import Stack from '#/components/Stack.vue'
+import useObs from '#/composables/useObs'
+import { storage } from '#/utils'
 
 const { connect } = useObs()
 const host = ref('localhost')

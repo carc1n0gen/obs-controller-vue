@@ -1,7 +1,7 @@
 <script setup>
-import useScenes from '../composables/useScenes'
-import ControlButton from './ControlButton.vue'
-import Stack from './Stack.vue'
+import ControlButton from '#/components/ControlButton.vue'
+import Stack from '#/components/Stack.vue'
+import useScenes from '#/composables/useScenes'
 
 const { scenes, currentScene, setCurrentScene } = useScenes()
 </script>

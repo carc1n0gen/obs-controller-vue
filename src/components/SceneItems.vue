@@ -1,11 +1,11 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
 
-import useSceneItems from '../composables/useSceneItems'
-import { storage } from '../utils'
-import ControlButton from './ControlButton.vue'
-import Modal from './Modal.vue'
-import Stack from './Stack.vue'
+import ControlButton from '#/components/ControlButton.vue'
+import Modal from '#/components/Modal.vue'
+import Stack from '#/components/Stack.vue'
+import useSceneItems from '#/composables/useSceneItems'
+import { storage } from '#/utils'
 
 const { sceneItems, setSceneItemEnabled } = useSceneItems()
 const controlledSceneItemNames = ref(storage.get('__controlled_sceneItems__', []))

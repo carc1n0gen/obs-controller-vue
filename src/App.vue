@@ -1,14 +1,12 @@
 <script setup>
-import { onMounted } from 'vue'
-
-import Controls from './components/Controls.vue'
-import Inputs from './components/Inputs.vue'
-import SceneItems from './components/SceneItems.vue'
-import Scenes from './components/Scenes.vue'
-import Setup from './components/Setup.vue'
-import Stack from './components/Stack.vue'
-import Toasts from './components/Toasts.vue'
-import useObs from './composables/useObs'
+import Controls from '#/components/Controls.vue'
+import Inputs from '#/components/Inputs.vue'
+import SceneItems from '#/components/SceneItems.vue'
+import Scenes from '#/components/Scenes.vue'
+import Setup from '#/components/Setup.vue'
+import Stack from '#/components/Stack.vue'
+import Toasts from '#/components/Toasts.vue'
+import useObs from '#/composables/useObs'
 
 const { isConnected } = useObs()
 </script>

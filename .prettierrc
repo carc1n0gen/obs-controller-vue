@@ -4,7 +4,7 @@
   "trailingComma": "es5",
   "tabWidth": 2,
   "printWidth": 120,
-  "importOrder": ["^[./]"],
+  "importOrder": ["^#/(.*)$", "^[./]"],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true,
   "plugins": ["@trivago/prettier-plugin-sort-imports"]
