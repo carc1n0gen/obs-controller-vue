@@ -8,7 +8,7 @@ import useSceneItems from '#/composables/useSceneItems'
 import { storage } from '#/utils'
 
 const { sceneItems, setSceneItemEnabled } = useSceneItems()
-const controlledSceneItemNames = ref(storage.get('__controlled_sceneItems__', []))
+const controlledSceneItemNames = ref(storage.controlledSceneItemNames || [])
 const showSelectedDialog = ref(false)
 
 const controlledSceneItems = computed(() => {
@@ -20,7 +20,7 @@ const uncontrolledSceneItems = computed(() => {
 })
 
 watch(controlledSceneItemNames, () => {
-  storage.set('__controlled_sceneItems__', controlledSceneItemNames.value)
+  storage.controlledSceneItemNames = controlledSceneItemNames.value
 })
 
 function toggleSelectionDialog() {

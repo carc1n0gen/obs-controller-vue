@@ -42,7 +42,7 @@ dialog {
   background-color: #464646;
 
   &::backdrop {
-    background-color: rgba(46, 46, 46, 0.5);
+    background-color: rgba(46, 46, 46, 0.8);
   }
 
   &[data-show-close='true'] {

@@ -8,7 +8,7 @@ import useInputs from '#/composables/useInputs'
 import { storage } from '#/utils'
 
 const { inputs, setInputMuted } = useInputs()
-const controlledInputNames = ref(storage.get('__controlled_inputs__', []))
+const controlledInputNames = ref(storage.controlledInputNames || [])
 const showSelectionDialog = ref(false)
 
 const controlledInputs = computed(() => {
@@ -20,7 +20,7 @@ const uncontrolledInputs = computed(() => {
 })
 
 watch(controlledInputNames, () => {
-  storage.set('__controlled_inputs__', controlledInputNames.value)
+  storage.controlledInputNames = controlledInputNames.value
 })
 
 function toggleSelectionDialog() {

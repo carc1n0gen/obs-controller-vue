@@ -1,7 +1,5 @@
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
-import SceneItems from '../components/SceneItems.vue'
-import { watch } from '../utils'
 import useObs from './useObs'
 import useScenes from './useScenes'
 

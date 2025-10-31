@@ -1,12 +1,12 @@
 <script setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, watch } from 'vue'
 
 import ControlButton from '#/components/ControlButton.vue'
 import Modal from '#/components/Modal.vue'
 import Stack from '#/components/Stack.vue'
 import useObs from '#/composables/useObs'
 import useToasts from '#/composables/useToasts'
-import { log, watch } from '#/utils'
+import { log } from '#/utils'
 
 const { obs, isConnected } = useObs()
 const { showToast } = useToasts()

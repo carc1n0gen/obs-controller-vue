@@ -7,7 +7,7 @@ import Stack from '#/components/Stack.vue'
 import useObs from '#/composables/useObs'
 import { storage } from '#/utils'
 
-const { connect } = useObs()
+const { connect, isConnected } = useObs()
 const host = ref('localhost')
 const port = ref('4455')
 const password = ref('')
@@ -26,15 +26,15 @@ async function testConnection() {
 
 async function doConnect() {
   await connect(host.value, port.value, password.value)
-  storage.set('__connection_details__', {
+  storage.connectionDetails = {
     host: host.value,
     port: port.value,
     password: password.value,
-  })
+  }
 }
 
 onMounted(() => {
-  const { host, port, password } = storage.get('__connection_details__', {})
+  const { host, port, password } = storage.connectionDetails || {}
   if (host && port && password) {
     connect(host, port, password)
   }
@@ -42,7 +42,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <Modal is-open :show-close-button="false">
+  <Modal :is-open="!isConnected" :show-close-button="false">
     <h2>Setup</h2>
     <p>Enter your OBS websocket connection details to continue.</p>
     <Stack direction="column" gap="5px" :style="{ margin: '0 0 20px 0' }">

@@ -1,6 +1,6 @@
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
-import { log, watch } from '../utils'
+import { log } from '../utils'
 import useObs from './useObs'
 
 const scenes = ref([])

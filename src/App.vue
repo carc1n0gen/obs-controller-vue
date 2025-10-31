@@ -6,16 +6,10 @@ import Scenes from '#/components/Scenes.vue'
 import Setup from '#/components/Setup.vue'
 import Stack from '#/components/Stack.vue'
 import Toasts from '#/components/Toasts.vue'
-import useObs from '#/composables/useObs'
-
-const { isConnected } = useObs()
 </script>
 
 <template>
-  <Stack v-if="!isConnected" is="main">
-    <Setup />
-  </Stack>
-  <Stack v-if="isConnected" is="main" gap="50px">
+  <Stack is="main" gap="50px">
     <Stack direction="column" gap="50px">
       <Scenes />
       <SceneItems />
@@ -25,6 +19,7 @@ const { isConnected } = useObs()
       <Controls />
     </Stack>
   </Stack>
+  <Setup />
   <Toasts />
 </template>
 

@@ -1,19 +1,3 @@
-import { watch as vWatch } from 'vue'
-
-/*
- * Wrapper for vue.watch so that all watchers are immediate when
- * in dev mode. Hot reloading causes data to reset and not be reloaded
- * when watchers are not immediate.
- *
- * The options object will override immediate in prod mode if immediate
- * is needed in some cases.
- */
-export function watch(sources, fn, options = {}) {
-  return vWatch(sources, fn, {
-    immediate: import.meta.env.DEV ? true : false,
-    ...options,
-  })
-}
 
 function getLogPrefix(type) {
   return `${type} ${new Date().toISOString()}`
@@ -38,14 +22,18 @@ export async function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-export const storage = {
-  get(key, defaultValue = null) {
-    return JSON.parse(localStorage.getItem(key)) || defaultValue
+export const storage = new Proxy(localStorage, {
+  get(target, prop) {
+    return JSON.parse(target.getItem(prop))
   },
-  set(key, value) {
-    localStorage.setItem(key, JSON.stringify(value))
+
+  set(target, prop, value) {
+    target.setItem(prop, JSON.stringify(value)) 
+    return true
   },
-  remove(key) {
-    localStorage.removeItem(key)
-  },
-}
+
+  deleteProperty(target, prop) {
+    target.removeItem(prop)
+    return true
+  }
+})
